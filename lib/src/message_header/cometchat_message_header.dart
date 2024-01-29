@@ -39,7 +39,6 @@ class CometChatMessageHeader extends StatelessWidget
       this.subtitleView,
       this.theme,
       this.avatarStyle,
-      this.isAvatarHidden = false,
       this.statusIndicatorStyle,
       this.listItemStyle,
       this.disableTyping = false,
@@ -113,9 +112,6 @@ class CometChatMessageHeader extends StatelessWidget
 
   ///[statusIndicatorStyle] set style for status indicator
   final StatusIndicatorStyle? statusIndicatorStyle;
-  
-  /// give the possibility to hide the avatar
-  final bool isAvatarHidden;
 
   ///[appBarOptions] set appbar options
   ///
@@ -326,7 +322,6 @@ class CometChatMessageHeader extends StatelessWidget
         avatarURL: avatarUrl,
         title: title,
         subtitleView: subtitleView,
-        isAvatarHidden: isAvatarHidden,
         avatarStyle: avatarStyle ?? const AvatarStyle(),
         statusIndicatorColor: statusIndicatorColor,
         statusIndicatorIcon: icon,
