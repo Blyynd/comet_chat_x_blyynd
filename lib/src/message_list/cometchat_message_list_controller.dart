@@ -214,8 +214,7 @@ class CometChatMessageListController
   void onInit() {
     CometChat.addGroupListener(_groupListenerId, this);
     CometChatGroupEvents.addGroupsListener(_uiGroupListener, this);
-    //CometChatMessageEvents.addMessagesListener(_uiMessageListener, this);
-    CometChat.addMessageListener(_uiMessageListener, this);
+    CometChatMessageEvents.addMessagesListener(_uiMessageListener, this);
     CometChatUIEvents.addUiListener(_uiEventListener, this);
     CometChatCallEvents.addCallEventsListener(_uiCallListener, this);
     CometChat.addCallListener(_sdkCallListenerId, this);
@@ -229,8 +228,7 @@ class CometChatMessageListController
   //  CometChat.removeMessageListener(_messageListenerId);
     CometChat.removeGroupListener(_groupListenerId);
     CometChatGroupEvents.removeGroupsListener(_uiGroupListener);
-    CometChat.removeMessageListener(_uiMessageListener);
-    //CometChatMessageEvents.removeMessagesListener(_uiMessageListener);
+    CometChatMessageEvents.removeMessagesListener(_uiMessageListener);
     CometChatUIEvents.removeUiListener(_uiEventListener);
     CometChatCallEvents.removeCallEventsListener(_uiCallListener);
     CometChat.removeCallListener(_sdkCallListenerId);

@@ -87,8 +87,7 @@ class CometChatConversationsController
 
   @override
   void onInit() {
-    CometChat.addMessageListener(messageUIListenerID, this);
-    //CometChatMessageEvents.addMessagesListener(messageUIListenerID, this);
+    CometChatMessageEvents.addMessagesListener(messageUIListenerID, this);
     CometChatGroupEvents.addGroupsListener(groupUIListenerID, this);
 
     if (disableUsersPresence == false) {
@@ -105,8 +104,7 @@ class CometChatConversationsController
 
   @override
   void onClose() {
-    //CometChatMessageEvents.removeMessagesListener(messageUIListenerID);
-    CometChat.removeMessageListener(messageUIListenerID);
+    CometChatMessageEvents.removeMessagesListener(messageUIListenerID);
     CometChatGroupEvents.removeGroupsListener(groupUIListenerID);
     CometChat.removeMessageListener(messageSDKListenerID);
     if (disableUsersPresence == false) {
