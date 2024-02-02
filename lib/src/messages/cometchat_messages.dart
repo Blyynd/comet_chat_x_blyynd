@@ -488,6 +488,8 @@ class _CometChatMessagesState extends State<CometChatMessages> {
                                     ?.typingIndicatorTextStyle,
                               ),
                               onBack: widget.messageHeaderConfiguration.onBack,
+                              backButtonPadding: widget
+                                  .messageHeaderConfiguration.backButtonPadding,
                             ),
                   body: Stack(
                     children: [
