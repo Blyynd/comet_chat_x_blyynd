@@ -367,7 +367,8 @@ class CometChatMessageHeader extends StatelessWidget
           getBackButton(context, _theme),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 16),
+            padding: messageHeaderStyle.headerPadding ??
+                const EdgeInsets.only(left: 20.0, right: 16),
             child: _getBody(controller, context, _theme),
           ))
         ],
