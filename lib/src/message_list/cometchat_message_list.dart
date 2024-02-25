@@ -62,6 +62,7 @@ class CometChatMessageList extends StatefulWidget {
       this.onError,
       this.theme,
       this.disableReceipt = false,
+      this.newMessageBannerView,
         // this.snackBarConfiguration,
         this.messageInformationConfiguration,
         this.dateSeparatorStyle
@@ -189,6 +190,9 @@ class CometChatMessageList extends StatefulWidget {
 
   ///[dateSeparatorStyle] sets style for date separator
   final DateStyle? dateSeparatorStyle;
+
+  final Widget Function(CometChatMessageListController controller,
+      BuildContext context, CometChatTheme theme)? newMessageBannerView;
 
   @override
   State<CometChatMessageList> createState() => _CometChatMessageListState();
@@ -804,6 +808,11 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
 
   Widget _getNewMessageBanner(CometChatMessageListController controller,
       BuildContext context, CometChatTheme theme) {
+    if(widget.newMessageBannerView != null) {
+
+      return widget.newMessageBannerView!(controller, context, theme);
+    }
+
     return Align(
       alignment: Alignment.topCenter,
       child: GestureDetector(

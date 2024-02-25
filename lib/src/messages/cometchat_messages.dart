@@ -40,6 +40,7 @@ class CometChatMessages extends StatefulWidget {
       this.disableSoundForMessages,
       this.theme,
       this.threadedMessagesConfiguration,
+      this.newMessageBannerView,
       this.hideDetails})
       : assert(user != null || group != null,
             "One of user or group should be passed"),
@@ -112,6 +113,9 @@ class CometChatMessages extends StatefulWidget {
 
   ///[hideDetails] toggle visibility for details icons
   final bool? hideDetails;
+
+  final Widget Function(CometChatMessageListController controller,
+      BuildContext context, CometChatTheme theme)? newMessageBannerView;
 
   @override
   State<CometChatMessages> createState() => _CometChatMessagesState();
@@ -209,6 +213,7 @@ class _CometChatMessagesState extends State<CometChatMessages> {
     return widget.messageListView != null
         ? widget.messageListView!(controller.user, controller.group, context)
         : CometChatMessageList(
+            newMessageBannerView: widget.newMessageBannerView,
             user: controller.user,
             group: controller.group,
             alignment: widget.messageListConfiguration.alignment ??
