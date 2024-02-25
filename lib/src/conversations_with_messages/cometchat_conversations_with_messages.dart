@@ -193,6 +193,7 @@ class _CometChatConversationsWithMessagesState
             disableTyping: widget.conversationsConfiguration?.disableTyping,
             deleteConversationDialogStyle: widget
                 .conversationsConfiguration?.deleteConversationDialogStyle,
+            hideAppbar: widget.conversationsConfiguration?.hideAppbar,
           );
         });
   }

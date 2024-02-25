@@ -105,6 +105,14 @@ class CometChatThreadedMessageController extends GetxController
     }
   }
 
+  @override
+  void onSchedulerMessageReceived(SchedulerMessage schedulerMessage) {
+    if (schedulerMessage.parentMessageId == parentMessage.id) {
+      replyCount++;
+      update();
+    }
+  }
+
   //------------------------UI Message Event Listeners------------------------------
   @override
   ccMessageSent(BaseMessage message, MessageStatus messageStatus) {

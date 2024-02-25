@@ -140,6 +140,8 @@ class _CometChatUsersWithMessagesState
             onBack: widget.usersConfiguration?.onBack,
             onError: widget.usersConfiguration?.onError,
             selectionIcon: widget.usersConfiguration?.selectionIcon,
+            submitIcon: widget.usersConfiguration?.submitIcon,
+            hideAppbar: widget.usersConfiguration?.hideAppbar,
           );
         });
   }

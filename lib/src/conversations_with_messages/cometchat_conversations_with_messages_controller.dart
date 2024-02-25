@@ -6,7 +6,6 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 ///it contains all the business logic involved in changing the state of the UI of [CometChatConversationsWithMessages]
 class CometChatConversationsWithMessagesController extends GetxController
     with
-        CometChatMessageEventListener,
         CometChatConversationEventListener,
         CometChatUIEventListener {
   CometChatConversationsWithMessagesController(
@@ -27,7 +26,6 @@ class CometChatConversationsWithMessagesController extends GetxController
 
   late BuildContext context;
   //Class Variables------
-  String messageEventListenerId = "CWMMessageListener";
   String conversationEventListenerId = "CWMConversationListener";
 
   //Class variables end-----
@@ -36,18 +34,18 @@ class CometChatConversationsWithMessagesController extends GetxController
   void onInit() {
     super.onInit();
     _dateString = DateTime.now().millisecondsSinceEpoch.toString();
-    messageEventListenerId = "${_dateString}CWMGroupListener";
+
     conversationEventListenerId = "${_dateString}CWMMessageListener";
     CometChatConversationEvents.addConversationListListener(
         conversationEventListenerId, this);
-    CometChatMessageEvents.addMessagesListener(messageEventListenerId, this);
+
     CometChatUIEvents.addUiListener(
         _dateString + conversationEventListenerId, this);
   }
 
   @override
   void onClose() {
-    CometChatMessageEvents.removeMessagesListener(messageEventListenerId);
+
     CometChatConversationEvents.removeConversationListListener(
         conversationEventListenerId);
     CometChatUIEvents.removeUiListener(

@@ -286,46 +286,70 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
       {bool? hideThreadView,
       BubbleAlignment? overridingAlignment,
       bool? hideOptions}) {
+    BubbleContentVerifier contentVerifier =
+    controller.checkBubbleContent(messageObject, widget.alignment);
+    // contentVerifier.alignment = BubbleAlignment.left;
+    Widget bubbleView;
+
     if (controller
             .templateMap["${messageObject.category}_${messageObject.type}"]
             ?.bubbleView !=
         null) {
-      return controller
+      bubbleView = controller
               .templateMap["${messageObject.category}_${messageObject.type}"]
-              ?.bubbleView!(messageObject, context, BubbleAlignment.left) ??
+              ?.bubbleView!(messageObject, context, contentVerifier.alignment) ??
           const SizedBox();
-    }
+    } else {
+      Color backgroundColor =
+          _getBubbleBackgroundColor(messageObject, controller, theme);
+      Widget? headerView;
+      Widget? contentView;
+      Widget? bottomView;
 
-    BubbleContentVerifier contentVerifier =
-        controller.checkBubbleContent(messageObject, widget.alignment);
-    Color backgroundColor =
-        _getBubbleBackgroundColor(messageObject, controller, theme);
-    Widget? headerView;
-    Widget? contentView;
-    Widget? bottomView;
+      if (contentVerifier.showName == true) {
+        headerView = getHeaderView(messageObject, theme, context, controller,
+            contentVerifier.alignment);
+      }
 
-    if (contentVerifier.showName == true) {
-      headerView = getHeaderView(
+      bottomView = getBottomView(
           messageObject, theme, context, controller, contentVerifier.alignment);
-    }
 
-    bottomView = getBottomView(
-        messageObject, theme, context, controller, contentVerifier.alignment);
+      Widget? footerView;
 
-    Widget? footerView;
+      if (contentVerifier.showFooterView != false) {
+        footerView = _getFooterView(
+            contentVerifier.alignment,
+            theme,
+            messageObject,
+            contentVerifier.showReadReceipt,
+            controller,
+            context);
+      }
 
-    if (contentVerifier.showFooterView != false) {
-      footerView = _getFooterView(contentVerifier.alignment, theme,
-          messageObject, contentVerifier.showReadReceipt, controller, context);
-    }
+      contentView = _getSuitableContentView(messageObject, theme, context,
+          backgroundColor, controller, contentVerifier.alignment);
 
-    contentView = _getSuitableContentView(messageObject, theme, context,
-        backgroundColor, controller, contentVerifier.alignment);
+      Widget? leadingView;
+      if (contentVerifier.showThumbnail == true && widget.showAvatar != false) {
+        leadingView =
+            getAvatar(messageObject, theme, context, messageObject.sender);
+      }
 
-    Widget? leadingView;
-    if (contentVerifier.showThumbnail == true && widget.showAvatar != false) {
-      leadingView =
-          getAvatar(messageObject, theme, context, messageObject.sender);
+      bubbleView = CometChatMessageBubble(
+        style: MessageBubbleStyle(background: backgroundColor, widthFlex: 0.8),
+        headerView: headerView,
+        alignment: contentVerifier.alignment,
+        contentView: contentView,
+        footerView: footerView,
+        leadingView: leadingView,
+        bottomView: bottomView,
+        // replyView: replyView,
+        threadView:
+        messageObject.deletedAt == null && hideThreadView != true
+            ? getViewReplies(messageObject, theme, context,
+            backgroundColor, controller, contentVerifier.alignment)
+            : null,
+      );
     }
 
     return Row(
@@ -341,21 +365,7 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
             if (hideOptions == true) return;
             await _showOptions(messageObject, theme, controller, context);
           },
-          child: CometChatMessageBubble(
-            style: MessageBubbleStyle(background: backgroundColor, widthFlex: 0.8),
-            headerView: headerView,
-            alignment: contentVerifier.alignment,
-            contentView: contentView,
-            footerView: footerView,
-            leadingView: leadingView,
-            bottomView: bottomView,
-            // replyView: replyView,
-            threadView:
-                messageObject.deletedAt == null && hideThreadView != true
-                    ? getViewReplies(messageObject, theme, context,
-                        backgroundColor, controller, contentVerifier.alignment)
-                    : null,
-          ),
+          child: bubbleView,
         )
       ],
     );
@@ -719,7 +729,7 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
     }
   }
 
-  /*
+
   Widget _getNoUserIndicator(BuildContext context, CometChatTheme theme) {
     if (widget.emptyStateView != null) {
       return Center(child: widget.emptyStateView!(context));
@@ -737,7 +747,7 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
       );
     }
   }
-  */
+
 
   _showErrorDialog(String errorText, BuildContext context, CometChatTheme theme,
       CometChatMessageListController controller) {
@@ -847,8 +857,8 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
           return _getLoadingIndicator(context, _theme);
         } else if (value.list.isEmpty) {
           //----------- empty list widget-----------
-          // return _getNoUserIndicator(context, _theme);
-          return const Center();
+          return _getNoUserIndicator(context, _theme);
+          //return const Center();
         } else {
           return Stack(
             children: [

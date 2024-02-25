@@ -70,7 +70,9 @@ class ConversationsConfiguration {
       this.onItemTap,
       this.onItemLongPress,
       this.disableTyping,
-      this.deleteConversationDialogStyle});
+      this.deleteConversationDialogStyle,
+      this.hideAppbar
+      });
 
   ///[conversationsProtocol] set custom conversations request builder protocol
   final ConversationsBuilderProtocol? conversationsProtocol;
@@ -223,4 +225,7 @@ class ConversationsConfiguration {
 
   ///[deleteConversationDialogStyle] provides customization for the dialog box that pops up when tapping the delete conversation option
   final ConfirmDialogStyle? deleteConversationDialogStyle;
+
+  ///[hideAppbar] toggle visibility for app bar
+  final bool? hideAppbar;
 }

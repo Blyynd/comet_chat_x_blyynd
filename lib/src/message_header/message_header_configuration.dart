@@ -20,7 +20,6 @@ class MessageHeaderConfiguration {
       this.listItemStyle,
       this.statusIndicatorStyle,
       this.appBarOptions,
-      this.backButtonPadding,
       this.onBack});
 
   ///[backButton]  to set back button widget
@@ -64,9 +63,6 @@ class MessageHeaderConfiguration {
   ///[appBarOptions] gives the tail view in [CometChatMessageHeader]
   final List<Widget>? Function(User? user, Group? group, BuildContext context)?
       appBarOptions;
-
-  ///[backButtonPadding] to set padding for back button
-  final EdgeInsets? backButtonPadding;
 
   ///[onBack] callback triggered on back button click
   final VoidCallback? onBack;

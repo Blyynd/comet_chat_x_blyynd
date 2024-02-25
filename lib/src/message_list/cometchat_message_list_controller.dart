@@ -17,8 +17,7 @@ class CometChatMessageListController
         CometChatUIEventListener,
         CometChatCallEventListener,
         CallListener,
-        ConnectionListener,
-        MessageListener
+        ConnectionListener
     implements CometChatMessageListControllerProtocol {
   //--------------------Constructor-----------------------
   CometChatMessageListController({
@@ -291,9 +290,6 @@ class CometChatMessageListController
     conversationId ??= conversation?.conversationId;
 
 
-
-
-
     try {
       await request.fetchPrevious(onSuccess: (List<BaseMessage> fetchedList) {
         if (fetchedList.isEmpty) {
@@ -304,11 +300,15 @@ class CometChatMessageListController
           hasMoreItems = true;
           for (var element in fetchedList.reversed) {
             if(element is InteractiveMessage){
+
               element = InteractiveMessageUtils.getSpecificMessageFromInteractiveMessage(element);
+
             }
-            if (isIncluded!=null&& isIncluded(element) == true) {
+            if (isIncluded!=null && isIncluded(element) == true) {
+
               list.add(element);
             }else{
+
               list.add(element);
             }
           }
@@ -319,6 +319,7 @@ class CometChatMessageListController
         }
         update();
       }, onError: (CometChatException e) {
+
         if (onError != null) {
           onError!(e);
         } else {
@@ -329,6 +330,7 @@ class CometChatMessageListController
         update();
       });
     } catch (e, s) {
+
       error = CometChatException("ERR", s.toString(), "Error");
       hasError = true;
       isLoading = false;
@@ -358,6 +360,11 @@ class CometChatMessageListController
   @override
   void onCustomMessageReceived(CustomMessage customMessage) {
     _onMessageReceived(customMessage);
+  }
+
+  @override
+  void onSchedulerMessageReceived(SchedulerMessage schedulerMessage) {
+    _onMessageReceived(schedulerMessage);
   }
 
   @override

@@ -63,6 +63,22 @@ class SmartReplyExtensionDecorator extends DataSourceDecorator
     checkAndShowReplies(textMessage);
   }
 
+  @override
+  void onSchedulerMessageReceived(SchedulerMessage schedulerMessage) {
+    Map<String, dynamic> id = {};
+
+    if (schedulerMessage.receiver is User) {
+      id['uid'] = (schedulerMessage.sender as User).uid;
+    } else if (schedulerMessage.receiver is Group) {
+      id['guid'] = (schedulerMessage.receiver as Group).guid;
+    }
+
+    if (schedulerMessage.parentMessageId != 0) {
+      id['parentMessageId'] = schedulerMessage.parentMessageId;
+    }
+    CometChatUIEvents.hidePanel(id, CustomUIPosition.messageListBottom);
+  }
+
   checkAndShowReplies(TextMessage textMessage) {
     List<String> replies = getReplies(textMessage);
 

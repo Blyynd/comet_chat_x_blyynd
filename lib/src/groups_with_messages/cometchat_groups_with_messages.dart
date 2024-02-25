@@ -169,6 +169,9 @@ class _CometChatGroupsWithMessagesState
             onItemLongPress: widget.groupsConfiguration.onItemLongPress,
             onBack: widget.groupsConfiguration.onBack,
             onError: widget.groupsConfiguration.onError,
+            selectionIcon: widget.groupsConfiguration.selectionIcon,
+            submitIcon: widget.groupsConfiguration.submitIcon,
+            hideAppbar: widget.groupsConfiguration.hideAppbar,
           );
         });
   }

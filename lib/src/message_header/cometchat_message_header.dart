@@ -42,9 +42,7 @@ class CometChatMessageHeader extends StatelessWidget
       this.statusIndicatorStyle,
       this.listItemStyle,
       this.disableTyping = false,
-      this.onBack,
-      this.backButtonPadding,
-      })
+      this.onBack})
       : assert(user != null || group != null,
             "One of user or group should be passed"),
         assert(user == null || group == null,
@@ -138,8 +136,6 @@ class CometChatMessageHeader extends StatelessWidget
 
   ///[onBack] callback triggered on closing this screen
   final VoidCallback? onBack;
-  
-  final EdgeInsets? backButtonPadding;
 
   Widget getBackButton(BuildContext context, CometChatTheme theme) {
     if (hideBackButton != true) {
@@ -162,9 +158,7 @@ class CometChatMessageHeader extends StatelessWidget
       }
 
       return Padding(
-          padding: backButtonPadding ?? 
-              const EdgeInsets.only(left: 20.0), 
-          child: _backButton);
+          padding: const EdgeInsets.only(left: 20.0), child: _backButton);
     } else {
       return const SizedBox(
         height: 0,
@@ -367,8 +361,7 @@ class CometChatMessageHeader extends StatelessWidget
           getBackButton(context, _theme),
           Expanded(
               child: Padding(
-            padding: messageHeaderStyle.headerPadding ??
-                const EdgeInsets.only(left: 20.0, right: 16),
+            padding: const EdgeInsets.only(left: 20.0, right: 16),
             child: _getBody(controller, context, _theme),
           ))
         ],

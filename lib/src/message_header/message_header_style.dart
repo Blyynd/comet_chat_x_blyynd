@@ -6,7 +6,6 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 class MessageHeaderStyle extends BaseStyles {
   ///message header style components
   const MessageHeaderStyle({
-    this.headerPadding,
     this.backButtonIconTint,
     this.onlineStatusColor,
     this.subtitleTextStyle,
@@ -24,9 +23,6 @@ class MessageHeaderStyle extends BaseStyles {
             border: border,
             borderRadius: borderRadius,
             gradient: gradient);
-
-  ///[headerPadding] provides padding to header
-  final EdgeInsets? headerPadding;
 
   ///[backButtonIconTint] provides color to back button
   final Color? backButtonIconTint;

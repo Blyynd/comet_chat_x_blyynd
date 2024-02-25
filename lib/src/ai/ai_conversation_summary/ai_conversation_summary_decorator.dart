@@ -84,6 +84,12 @@ class AIConversationSummaryDecorator extends DataSourceDecorator
     hideSummaryPanel(idMap);
   }
 
+  @override
+  onSchedulerMessageReceived(SchedulerMessage schedulerMessage){
+    Map<String , dynamic > idMap =  getMapForReceivedMessage(schedulerMessage);
+    hideSummaryPanel(idMap);
+  }
+
 
 
 

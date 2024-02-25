@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ///[AISmartRepliesDecorator] is a the view model for [AiSmartReplyExtension] it contains all the relevant business logic
 ///it is also a sub-class of [DataSourceDecorator] which allows any extension to override the default methods provided by [MessagesDataSource]
 class AISmartRepliesDecorator extends DataSourceDecorator
-    with CometChatUIEventListener {
+    with CometChatUIEventListener, CometChatMessageEventListener {
   late String dateStamp = "";
   late String _listenerId = "";
   User? loggedInUser;
@@ -15,7 +15,9 @@ class AISmartRepliesDecorator extends DataSourceDecorator
     CometChatUIEvents.removeUiListener(_listenerId);
     dateStamp = DateTime.now().microsecondsSinceEpoch.toString();
     _listenerId = "AiSmartReply$dateStamp";
+    closeCall();
     CometChatUIEvents.addUiListener(_listenerId, this);
+    CometChatMessageEvents.addMessagesListener(_listenerId, this);
     getLoggedInUser();
   }
 
@@ -24,7 +26,8 @@ class AISmartRepliesDecorator extends DataSourceDecorator
   }
 
   closeCall() {
-    CometChat.removeMessageListener(_listenerId);
+    CometChatMessageEvents.removeMessagesListener(_listenerId);
+    CometChatUIEvents.removeUiListener(_listenerId);
   }
 
 
@@ -93,5 +96,21 @@ class AISmartRepliesDecorator extends DataSourceDecorator
   @override
   String getId() {
     return "aismartreply";
+  }
+
+  @override
+  void onSchedulerMessageReceived(SchedulerMessage schedulerMessage) {
+    Map<String, dynamic> id = {};
+
+    if (schedulerMessage.receiver is User) {
+      id['uid'] = (schedulerMessage.sender as User).uid;
+    } else if (schedulerMessage.receiver is Group) {
+      id['guid'] = (schedulerMessage.receiver as Group).guid;
+    }
+
+    if (schedulerMessage.parentMessageId != 0) {
+      id['parentMessageId'] = schedulerMessage.parentMessageId;
+    }
+    CometChatUIEvents.hidePanel(id, CustomUIPosition.messageListBottom);
   }
 }

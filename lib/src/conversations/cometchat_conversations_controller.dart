@@ -16,8 +16,7 @@ class CometChatConversationsController
         CometChatUserEventListener,
         CallListener,
         CometChatCallEventListener,
-        ConnectionListener,
-        MessageListener
+        ConnectionListener
     implements CometChatConversationsControllerProtocol {
   //Constructor
   CometChatConversationsController(
@@ -744,5 +743,10 @@ class CometChatConversationsController
   @override
   void onCallEndedMessageReceived(Call call) {
     refreshSingleConversation(call, true);
+  }
+
+  @override
+  void onSchedulerMessageReceived(SchedulerMessage schedulerMessage) {
+    _onMessageReceived(schedulerMessage, false);
   }
 }

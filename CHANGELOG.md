@@ -1,3 +1,23 @@
+## 4.2.2 - 22nd February 2024
+
+### Fixed
+- `bubbleView` alignment issue fixed in `CometChatMessageList`
+- missing configurations `hideAppBar`, `submitIcon`, `selectionIcon` forwarded from `CometChatUsersWithMessages`, `CometChatGroupsWithMessages`, `CometChatConversationsWithMessages` to `CometChatUsers`, `CometChatGroups`, `CometChatConversations` respectively.
+
+
+## 4.2.1 - 4th February 2024
+
+### Added
+- onSchedulerMessageReceived listeners implemented  in `CometChatMessageList`,`CometChatThreadedMessages`,`SmartReplyExtension`, `AIConversationStarter` , `AIConversationSummary` and `AiSmartReplyExtension`.
+- `hideAppBar` property added in `CometChatConversations`  
+
+
+### Changed
+
+- [CometChat Chat SDK](https://pub.dev/packages/cometchat_sdk) dependency upgraded to `cometchat_sdk: ^4.0.5`
+- [cometchat_uikit_shared](https://pub.dev/packages/cometchat_uikit_shared) dependency upgraded to `cometchat_uikit_shared: ^4.2.1`
+
+
 ## 4.1.0 - 14th December 2023
 
 ### Added

@@ -17,7 +17,7 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Flutter-violet.svg)](#)
 [![Platform](https://img.shields.io/badge/Language-dart-blue.svg)](#)
-![Version](https://shields.io/badge/version-4.1.0-orange)
+![Version](https://shields.io/badge/version-4.2.2-orange)
 ![Twitter Follow](https://img.shields.io/twitter/follow/cometchat?style=social)
 
 ## Table of contents

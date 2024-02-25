@@ -71,10 +71,11 @@ class CometChatConversations extends StatelessWidget {
       this.onBack,
       this.onItemTap,
       this.onItemLongPress,
-      this.hideAppBar = false,
       bool? disableTyping,
       ConfirmDialogStyle? deleteConversationDialogStyle,
-      OnError? onError})
+      OnError? onError,
+        this.hideAppbar = false,
+      })
       : conversationsController = CometChatConversationsController(
             conversationsBuilderProtocol: conversationsProtocol ??
                 UIConversationsBuilder(
@@ -90,9 +91,6 @@ class CometChatConversations extends StatelessWidget {
             deleteConversationDialogStyle: deleteConversationDialogStyle,
             onError: onError),
         super(key: key);
-
-  ///hide app bar
-  final bool hideAppBar;
 
   ///property to be set internally by using passed parameters [conversationsProtocol] ,[selectionMode] ,[options]
   ///these are passed to the [CometChatConversationsController] which is responsible for the business logic
@@ -227,6 +225,9 @@ class CometChatConversations extends StatelessWidget {
 
   ///[onItemLongPress] callback triggered on pressing for long on a conversation item
   final Function(Conversation)? onItemLongPress;
+
+  ///[hideAppbar] toggle visibility for app bar
+  final bool? hideAppbar;
 
   final RxBool _isSelectionOn = false.obs;
 
@@ -545,10 +546,10 @@ class CometChatConversations extends StatelessWidget {
     return CometChatListBase(
         title: title ?? cc.Translations.of(context).chats,
         hideSearch: true,
+        hideAppBar: hideAppbar,
         backIcon: backButton,
         showBackButton: showBackButton,
         onBack: onBack,
-        hideAppBar: hideAppBar,
         theme: theme,
         menuOptions: [
           if (appBarOptions != null && appBarOptions!.isNotEmpty)
