@@ -23,7 +23,7 @@ dependencies:
   get: ^4.6.5
   cometchat_sdk:      
       git:
-        url: https://github.com/Blyynd/comet_chat_sdk_x_blyynd .git
+        url: https://github.com/Blyynd/comet_chat_sdk_x_blyynd.git
         ref: master
   url_launcher: ^6.0.20
 
