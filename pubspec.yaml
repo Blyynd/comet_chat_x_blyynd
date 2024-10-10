@@ -21,7 +21,10 @@ dependencies:
   path_provider: ^2.0.9
   webview_flutter: ^4.2.2
   get: ^4.6.5
-  cometchat_sdk: ^4.0.5
+  cometchat_sdk:      
+      git:
+        url: https://github.com/Blyynd/comet_chat_sdk_x_blyynd .git
+        ref: master
   url_launcher: ^6.0.20
 
 
